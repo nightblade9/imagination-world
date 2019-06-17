@@ -5,6 +5,7 @@ var _SCREEN_WIDTH = ProjectSettings.get_setting("display/window/size/width")
 var _SCREEN_HEIGHT = ProjectSettings.get_setting("display/window/size/height")
 
 var _destination:Vector2
+var _tween:Tween
 
 func _ready():
 	_pick_destination()
@@ -13,11 +14,18 @@ func _pick_destination():
 	var x = randi() % int(_SCREEN_WIDTH - self.width())
 	var y = randi() % int(_SCREEN_HEIGHT - self.height())
 	_destination = Vector2(x, y)
-
-func _process(delta):
-	var direction = position - _destination
-	direction = direction.normalized()
-	position += (direction * _VELOCITY * delta)
+	
+	# Start tween
+	if _tween != null:
+		remove_child(_tween)
+		
+	var duration:float = (_destination - position).length() / _VELOCITY;
+	
+	_tween = Tween.new()
+	_tween.interpolate_property(self, "position", position, _destination,
+		duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	_tween.start()
+	add_child(_tween)
 
 func width():
 	return $ColorRect.margin_right
