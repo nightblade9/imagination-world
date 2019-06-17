@@ -10,7 +10,7 @@ var _bacteria = []
 
 func _ready():
 	_SCREEN_WIDTH = ProjectSettings.get_setting("display/window/size/width")
-	_SCREEN_HEIGHT = ProjectSettings.get_setting("display/window/size/width")
+	_SCREEN_HEIGHT = ProjectSettings.get_setting("display/window/size/height")
 	
 	for i in range(_NUMBER_BACTERIA_PER_WAVE):
 		var b = Bacteria.instance()
