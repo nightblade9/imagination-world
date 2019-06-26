@@ -20,3 +20,6 @@ func _ready():
 		_bacteria.append(b)
 		add_child(b)
 		
+func _input(event):
+	if event is InputEventMouseMotion:
+		$PlacementCursor.position = event.position
