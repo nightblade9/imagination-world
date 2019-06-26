@@ -1,13 +1,19 @@
 extends Node2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var _targets = []
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func _on_Area2D_input_event(viewport, event, shape_idx):
+	# TODO: android support
+	print("KABOOM!!!!")
+	get_parent().remove_child(self)
+	
+	for target in _targets:
+		get_parent().remove_child(target)
+		
+	queue_free()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
+	_targets.append(area)
+
+func _on_Area2D_area_shape_exited(area_id, area, area_shape, self_shape):
+	_targets.remove(_targets.find(area))
