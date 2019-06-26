@@ -17,5 +17,6 @@ func _ready():
 		var x = randi() % int(_SCREEN_WIDTH - b.width())
 		var y = randi() % int(_SCREEN_HEIGHT - b.height())
 		b.position = Vector2(x, y)
+		_bacteria.append(b)
 		add_child(b)
 		

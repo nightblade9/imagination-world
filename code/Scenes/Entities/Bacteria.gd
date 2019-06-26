@@ -24,7 +24,10 @@ func _pick_destination():
 	_tween = Tween.new()
 	_tween.interpolate_property(self, "position", position, _destination,
 		duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	
+	_tween.connect("tween_completed", self, "_tween_completed")
 	_tween.start()
+	
 	add_child(_tween)
 
 func width():
@@ -32,3 +35,6 @@ func width():
 
 func height():
 	return $ColorRect.margin_bottom
+	
+func _tween_completed(object, key):
+	_pick_destination()
