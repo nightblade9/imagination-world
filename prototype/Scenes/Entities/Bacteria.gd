@@ -6,7 +6,9 @@ var _SCREEN_HEIGHT = ProjectSettings.get_setting("display/window/size/height")
 
 var _destination:Vector2
 var _tween:Tween # movement tween
+var _death_tween:Tween
 var _is_glowing:bool = false
+var _glow_from:int = 0
 
 func _ready():
 	_pick_destination()
@@ -15,6 +17,10 @@ func _process(delta):
 	if _is_glowing:
 		# Map -1 .. 1 to 0.5 .. 1?
 		self.modulate.a = 0.5 * (sin(GlobalTimer.elapsed_seconds * 4)) + 0.5
+	
+	var now = OS.get_ticks_msec()
+	if _is_glowing and (now - _glow_from) >= 5000:
+		die()
 	
 func _pick_destination():
 	var x = randi() % int(_SCREEN_WIDTH - self.width())
@@ -47,4 +53,8 @@ func _tween_completed(object, key):
 
 func glow():
 	self._is_glowing = true
-	
+	self._glow_from = OS.get_ticks_msec()
+
+func die():
+	get_parent().remove_child(self)
+	queue_free()
