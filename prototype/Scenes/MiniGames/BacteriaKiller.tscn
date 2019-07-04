@@ -13,3 +13,11 @@ color = Color( 0.588235, 0, 0, 1 )
 
 [node name="PlacementCursor" parent="." instance=ExtResource( 2 )]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PillsLeftLabel" type="Label" parent="CanvasLayer"]
+margin_right = 68.0
+margin_bottom = 14.0
+text = "Pills left: 3"
+
+[connection signal="dispensed_pill" from="PlacementCursor" to="." method="_on_PlacementCursor_dispensed_pill"]

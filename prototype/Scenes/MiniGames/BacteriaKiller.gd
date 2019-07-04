@@ -7,6 +7,7 @@ var _SCREEN_WIDTH
 var _SCREEN_HEIGHT
 
 var _bacteria = []
+var _pills_left = 3
 
 func _ready():
 	_SCREEN_WIDTH = ProjectSettings.get_setting("display/window/size/width")
@@ -23,3 +24,13 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion:
 		$PlacementCursor.position = event.position
+
+func _on_PlacementCursor_dispensed_pill():
+	_pills_left -= 1
+	$CanvasLayer/PillsLeftLabel.text = "Pills left: " + str(_pills_left)
+	if _pills_left <= 0:
+		_game_over()
+
+func _game_over():
+	$PlacementCursor.die()
+	$CanvasLayer/PillsLeftLabel.visible = false
