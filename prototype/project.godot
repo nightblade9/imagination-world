@@ -19,6 +19,10 @@ config/name="Imagination World"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GlobalTimer="*res://Scripts/GlobalTimer.gd"
+
 [display]
 
 window/size/width=960
