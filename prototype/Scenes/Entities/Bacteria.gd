@@ -1,5 +1,7 @@
 extends Node2D
 
+var Bacteria = get_script()
+
 const _VELOCITY:int = 100
 var _SCREEN_WIDTH = ProjectSettings.get_setting("display/window/size/width")
 var _SCREEN_HEIGHT = ProjectSettings.get_setting("display/window/size/height")
@@ -52,9 +54,16 @@ func _tween_completed(object, key):
 	_pick_destination()
 
 func glow():
-	self._is_glowing = true
-	self._glow_from = OS.get_ticks_msec()
+	if not self._is_glowing:
+		self._is_glowing = true
+		self._glow_from = OS.get_ticks_msec()
 
 func die():
 	get_parent().remove_child(self)
 	queue_free()
+
+func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
+	if _is_glowing and area != null:
+		var parent = area.get_parent()
+		if parent is Bacteria:
+			parent.glow()

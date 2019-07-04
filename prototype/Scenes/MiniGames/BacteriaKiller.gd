@@ -2,7 +2,7 @@ extends Node2D
 
 const Bacteria = preload("res://Scenes/Entities/Bacteria.tscn")
 
-const _NUMBER_BACTERIA_PER_WAVE = 5
+const _NUMBER_BACTERIA_PER_WAVE = 20
 var _SCREEN_WIDTH
 var _SCREEN_HEIGHT
 
