@@ -38,3 +38,7 @@ func height():
 	
 func _tween_completed(object, key):
 	_pick_destination()
+
+func die():
+	print("DIED")
+	queue_free()
